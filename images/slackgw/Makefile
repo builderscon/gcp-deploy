@@ -21,11 +21,11 @@ endif
 $(CURDIR)/$(APPNAME):
 ifeq ($(DEBUG), 1)
 	cd $(APPDIR) && \
-	GOOS=linux GOARCH=amd64 go build -tags debug0 -o $(CURDIR)/$(APPNAME) .
+	GOOS=linux GOARCH=amd64 go build -tags debug0 -o $(CURDIR)/$(APPNAME) cmd/slackgw/slackgw.go 
 	
 else
 	cd $(APPDIR) && \
-	GOOS=linux GOARCH=amd64 go build -o $(CURDIR)/$(APPNAME) .
+	GOOS=linux GOARCH=amd64 go build -o $(CURDIR)/$(APPNAME) cmd/slackgw/slackgw.go
 endif
 
 $(APPNAME): $(CURDIR)/$(APPNAME)
