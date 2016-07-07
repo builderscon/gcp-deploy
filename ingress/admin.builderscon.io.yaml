@@ -2,6 +2,8 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: adminweb-ingress-{{index . "timestamp"}}
+  annotations:
+    kubernetes.io/ingress.allowHTTP: "false"
   labels:
     hostname: admin.builderscon.io
 spec:
