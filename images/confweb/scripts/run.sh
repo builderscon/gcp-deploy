@@ -5,7 +5,7 @@
 set -e
 
 exec gunicorn \
-  --bind 0.0.0.0:8080 \
+  --bind 0.0.0.0:5000 \
   --workers 10 \
   --max-requests 2000 \
   --max-requests-jitter 200 \
