@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: octav-confweb-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: confweb
+        group: builderscon
+    spec:
+        # This emptyDir volume is used to populate data from the app container
+        # so that the proxy can serve it without asking the app for it
+        - name: static-files
+          emptyDir:
+          medium: Memory
+        # This secret must be created before hand
+        - name: nginx
+          secret:
+          secretName: nginx-conf-builderscon-io
+      containers:
+        - image: asia.gcr.io/builderscon-1248/confapp:18fe67d-e3626e7
+          name: app
+          volumeMounts:
+            - name: static-files
+              mountPath: /static-files
+          lifecycle:
+            postStart:
+              exec:
+                # This command copies the static files to a shared dir so
+                # proxy can read it
+                command: [ "cp", "-R", "/conf.builderscon.io/assets/", "/static-files/" ]
+        # proxy that receives traffic. shares the same static file
+        # resource set as the app. config file exists in secret
+        - image: asia.gcr.io/builderscon-1248/nginx:20160411.105018
+          name: proxy 
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits: 
+              memory: "128Mi"
+              cpu: "200m"
+          ports:
+            - name: ngx-proxy-http
+              containerPort: 5001
+              protocol: TCP
+          volumeMounts:
+            - name: static-files
+              readOnly: true
+              mountPath: /static-files
+            - name: nginx
+              readOnly: true
+              mountPath: /etc/nginx
