@@ -1,6 +1,4 @@
-DEBUG=
-
-.PHONY: $(APPNAME)
+.PHONY:
 
 docker:
 	@$(MAKE) -C images/$(APPNAME) docker DEBUG=$(DEBUG)
@@ -17,4 +15,4 @@ deploy:
 
 %-publish:
 	@echo "* Publishing docker image..."
-	@$(MAKE) publish APPNAME=$(patsubst %-publish,%,$@)
+	@$(MAKE) publish APPNAME=$(patsubst %-publish,%,$@) DEBUG=$(DEBUG)
