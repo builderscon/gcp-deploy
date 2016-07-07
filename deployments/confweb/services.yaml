@@ -1,0 +1,31 @@
+kind: List
+apiVersion: v1
+items:
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: confweb-proxy
+      labels:
+        name: confweb-proxy
+    spec:
+      type: NodePort
+      selector:
+        name: confweb
+      ports:
+        - name: proxy
+          port: 5001
+          targetPort: 5001
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: confweb-app
+      labels:
+        name: confweb-app
+    spec:
+      type: ClusterIP
+      selector:
+        name: confweb
+      ports:
+        - name: app
+          port: 5000
+          targetPort: 5000
