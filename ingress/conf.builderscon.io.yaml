@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: confweb-ingress-{{index . timestamp}}
+  name: confweb-ingress-{{index . "timestamp"}}
   labels:
     hostname: conf.builderscon.io
 spec:
