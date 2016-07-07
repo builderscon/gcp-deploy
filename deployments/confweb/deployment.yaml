@@ -21,7 +21,7 @@ spec:
           secret:
             secretName: nginx-conf-builderscon-io
       containers:
-        - image: asia.gcr.io/builderscon-1248/confapp:18fe67d-e3626e7
+        - image: asia.gcr.io/builderscon-1248/confapp:18fe67d-e3626e787fd8d6
           name: app
           volumeMounts:
             - name: static-files
