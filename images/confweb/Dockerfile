@@ -6,8 +6,6 @@ RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
               build-base \
               python3 \
               python3-dev \
-              mariadb-dev \
-  && rm /usr/lib/libmysqld* \
   && pip3.5 install --upgrade pip \
   && rm /var/cache/apk/* \
   && cd /usr/bin \
@@ -17,8 +15,7 @@ RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
   && ln -sf python3.5 python \
   && ln -sf python-config3.5 python-config \
   && ln -sf pip3.5 pip \
-  && pip install jinja2 requests bottle mysqlclient gunicorn \
-  && rm /usr/bin/mysql*
+  && pip install jinja2 requests bottle redis gunicorn
 
 ADD conf.builderscon.io /conf.builderscon.io
 ADD scripts/run.sh /

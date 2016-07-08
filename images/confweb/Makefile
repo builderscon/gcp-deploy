@@ -4,7 +4,6 @@ APPDIR=conf.builderscon.io
 APPNAME=confapp
 PROJECT_ID=$(shell gcloud config list 2>&1 | grep 'project = ' | sed -e 's/project = //')
 
-FILES=$(shell find $(APPDIR) -not -wholename '*/.git*' -type f)
 
 tag:
 	$(eval TAG := $(shell cd $(APPDIR) && git describe --tags >& /dev/null))
@@ -17,11 +16,15 @@ endif
 	$(eval IMAGE_NAME :=$(IMAGE_NAME_BASE):$(TAG))
 	@echo "Using tag '$(TAG)'"
 
+$(APPDIR):
+	@git clone git@github.com:builderscon/conf.builderscon.io.git
+	$(eval FILES:=$(shell find $(APPDIR) -not -wholename '*/.git*' -type f))
+
 gcloud-config:
 	@echo "Activating configuration $(OCTAV_CONFIG_NAME)"
 	@gcloud config configurations activate $(OCTAV_CONFIG_NAME)
 
-docker: $(FILES) Dockerfile config.json
+docker: $(APPDIR) $(FILES) Dockerfile config.json
 	@echo "Building image octav/$(APPNAME)"
 	@cp config.json $(APPDIR)
 	@./scripts/build-docker.sh
@@ -34,6 +37,3 @@ publish: tag docker gcloud-config
 	@gcloud docker push $(IMAGE_NAME)
 	@gcloud docker push $(IMAGE_NAME_LATEST)
 
-deploy: tag deployment.yaml
-	@kubectl apply -f deployment.yaml
-	@kubectl apply -f service.yaml
