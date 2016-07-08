@@ -10,7 +10,7 @@ tag:
 ifeq ($(TAG), )
 	$(eval TAG := $(shell cd $(APPDIR) && git log -1 --pretty=format:%h))
 endif
-	$(eval TAG := $(TAG)-$(shell shasum config.json | cut -c1-7)$(shell shasum scripts/run.sh | cut -c1-7))
+	$(eval TAG := $(TAG)-$(shell shasum config.json | cut -c1-7)-$(shell shasum scripts/run.sh | cut -c1-7)-$(shell shasum Dockerfile | cut -c1-7))
 	$(eval IMAGE_NAME_BASE :=$(REPOSITORY_HOST)/$(PROJECT_ID)/$(APPNAME))
 	$(eval IMAGE_NAME_LATEST :=$(IMAGE_NAME_BASE):latest)
 	$(eval IMAGE_NAME :=$(IMAGE_NAME_BASE):$(TAG))

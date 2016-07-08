@@ -26,7 +26,7 @@ spec:
         - name: octav-clone
           gitRepo:
             repository: git://github.com/builderscon/gcp-deploy.git
-            revision: 0b29900
+            revision: ada9bf1
       containers:
         # Talks to slack, accepts requests to post to slack
         - image: asia.gcr.io/builderscon-1248/slackgw:6259541-18550cb-debug
@@ -208,7 +208,7 @@ spec:
               readOnly: true
               mountPath: /slack
         # Auxilary tool to listen to fifo and push secrets to k8s
-        - image: asia.gcr.io/builderscon-1248/deploybot-k8s:901898f-debug
+        - image: asia.gcr.io/builderscon-1248/deploybot-k8s:5066889-debug
           name: deploybot-k8s
           resources:
             requests:
