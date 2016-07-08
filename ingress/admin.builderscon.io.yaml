@@ -5,7 +5,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.allowHTTP: "false"
   labels:
-    hostname: admin.builderscon.io
+    domain: admin.builderscon.io
 spec:
   tls:
     - secretName: admin.builderscon.io-20160707-052224
