@@ -13,7 +13,7 @@ gke-deploy:
 	@$(MAKE) -C deployments/$(APPNAME) deploy
 
 %-clean:
-	@echo "* Cleaning..."
+	@echo "* Cleaning $(patsubst %-clean,%,$@)..."
 	@$(MAKE) compclean APPNAME=$(patsubst %-clean,%,$@) DEBUG=$(DEBUG)
 
 %-docker:
@@ -27,6 +27,14 @@ gke-deploy:
 %-gke-deploy:
 	@echo "* Deploying to GKE..."
 	@$(MAKE) gke-deploy APPNAME=$(patsubst %-gke-deploy,%,$@) DEBUG=$(DEBUG)
+
+slackbot-clean:
+	@$(MAKE) acmebot-clean 
+	@$(MAKE) acmebot-k8s-clean 
+	@$(MAKE) deploybot-clean 
+	@$(MAKE) deploybot-k8s-clean 
+	@$(MAKE) slackgw-clean 
+	@$(MAKE) slackrouter-clean 
 
 slackbot-docker:
 	@$(MAKE) acmebot-docker DEBUG=$(DEBUG)
@@ -45,7 +53,7 @@ slackbot-publish:
 	@$(MAKE) slackrouter-publish DEBUG=$(DEBUG)
 
 slackbot:
-	@$(MAKE) -j 6 slackbot-docker DEBUG=$(DEBUG)
-	@$(MAKE) -j 6 slackbot-publish DEBUG=$(DEBUG)
+	@$(MAKE) slackbot-docker DEBUG=$(DEBUG)
+	@$(MAKE) slackbot-publish DEBUG=$(DEBUG)
 	@$(MAKE) slackbot-gke-deploy DEBUG=$(DEBUG)
 

@@ -26,7 +26,7 @@ spec:
         - name: octav-clone
           gitRepo:
             repository: git://github.com/builderscon/gcp-deploy.git
-            revision: dac11b1
+            revision: 0b29900
       containers:
         # Talks to slack, accepts requests to post to slack
         - image: asia.gcr.io/builderscon-1248/slackgw:6259541-18550cb-debug
@@ -72,7 +72,7 @@ spec:
               mountPath: /slack
         # Listens to google pubsub, routes the messages to the
         # appropriate worker
-        - image: asia.gcr.io/builderscon-1248/slackrouter:1183e96-18550cb
+        - image: asia.gcr.io/builderscon-1248/slackrouter:946e565-18550cb-debug
           name: slackrouter
           resources:
             requests:
@@ -104,7 +104,7 @@ spec:
               readOnly: true
               mountPath: /slack
         # Listens to google pubsub, does the acme stuff
-        - image: asia.gcr.io/builderscon-1248/acmebot:c6d9adb-18550cb-debug-2
+        - image: asia.gcr.io/builderscon-1248/acmebot:946e565-18550cb-debug
           name: acmebot
           resources:
             requests:
@@ -145,7 +145,7 @@ spec:
               readOnly: true
               mountPath: /slack
         # Auxilary tool to listen to fifo and push secrets to k8s
-        - image: asia.gcr.io/builderscon-1248/acmebot-k8s:1183e96
+        - image: asia.gcr.io/builderscon-1248/acmebot-k8s:946e565-debug
           name: acmebot-k8s
           resources:
             requests:
@@ -167,7 +167,7 @@ spec:
               readOnly: false
               mountPath: /k8s-fifo
         # Listens to google pubsub, does deployment
-        - image: asia.gcr.io/builderscon-1248/deploybot:1183e96
+        - image: asia.gcr.io/builderscon-1248/deploybot:3783e72-debug
           name: deploybot
           resources:
             requests:
@@ -208,7 +208,7 @@ spec:
               readOnly: true
               mountPath: /slack
         # Auxilary tool to listen to fifo and push secrets to k8s
-        - image: asia.gcr.io/builderscon-1248/deploybot-k8s:45ca5e8-debug
+        - image: asia.gcr.io/builderscon-1248/deploybot-k8s:901898f-debug
           name: deploybot-k8s
           resources:
             requests:
