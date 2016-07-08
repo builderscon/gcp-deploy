@@ -1,7 +1,7 @@
 REPOSITORY_HOST=asia.gcr.io
 OCTAV_CONFIG_NAME=octav-dev
 APPDIR=conf.builderscon.io
-APPNAME=confapp
+APPNAME=confweb
 PROJECT_ID=$(shell gcloud config list 2>&1 | grep 'project = ' | sed -e 's/project = //')
 
 

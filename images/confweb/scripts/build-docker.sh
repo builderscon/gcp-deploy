@@ -11,4 +11,4 @@ if [[ ! -e $APPDIR/app.py ]]; then
     popd
 fi
 
-exec docker build -t octav/confapp .
+exec docker build -t octav/confweb .
