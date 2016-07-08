@@ -2,8 +2,6 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: confweb-ingress-{{index . "timestamp"}}
-  annotations:
-    kubernetes.io/ingress.allowHTTP: "false"
   labels:
     domain: conf.builderscon.io
 spec:
