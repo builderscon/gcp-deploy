@@ -1,6 +1,7 @@
 APPNAME=apiserver
 REPOSITORY_HOST=asia.gcr.io
 PROJECT_ID=$(shell gcloud config list 2>&1 | grep 'project = ' | sed -e 's/project = //')
+CONFIG_NAME=octav-dev
 
 APPDIR=$(shell go list -f '{{ .Dir }}' github.com/builderscon/octav/octav)
 
@@ -33,7 +34,11 @@ $(APPNAME): $(CURDIR)/$(APPNAME)
 docker: $(CURDIR)/$(APPNAME)
 	docker build -t octav/$(APPNAME) .
 
-publish: tag $(APPNAME)
+gcloud-config:
+	@echo "Activating configuration $(CONFIG_NAME)"
+	@gcloud config configurations activate $(CONFIG_NAME)
+
+publish: gcloud-config tag $(APPNAME)
 	@echo "Publishing [ $(IMAGE_NAME) ]"
 	@docker tag octav/$(APPNAME) $(IMAGE_NAME)
 	@echo " --> pushing $(IMAGE_NAME)..."
