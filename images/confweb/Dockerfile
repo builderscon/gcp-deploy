@@ -15,11 +15,12 @@ RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/
   && ln -sf python3.5 python \
   && ln -sf python-config3.5 python-config \
   && ln -sf pip3.5 pip \
-  && pip install jinja2 requests bottle redis gunicorn
+  && pip install gunicorn
 
 VOLUME [ "/static-files" ]
 EXPOSE 5000
 ADD conf.builderscon.io /conf.builderscon.io
 ADD scripts/run.sh /
 WORKDIR /conf.builderscon.io
+RUN pip install -r requirements.txt
 CMD [ "/run.sh" ]
