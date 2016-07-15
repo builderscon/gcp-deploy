@@ -24,7 +24,12 @@ gcloud-config:
 	@echo "Activating configuration $(OCTAV_CONFIG_NAME)"
 	@gcloud config configurations activate $(OCTAV_CONFIG_NAME)
 
-docker: $(APPDIR) $(FILES) Dockerfile config.json
+latest:
+	@make $(APPDIR)
+	@pushd $(APPDIR) && git pull && popd
+	$(eval FILES:=$(shell find $(APPDIR) -not -wholename '*/.git*' -type f))
+
+docker: latest $(APPDIR) $(FILES) Dockerfile config.json
 	@echo "Building image octav/$(APPNAME)"
 	@cp config.json $(APPDIR)
 	@./scripts/build-docker.sh
