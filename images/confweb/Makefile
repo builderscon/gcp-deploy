@@ -42,3 +42,5 @@ publish: tag docker gcloud-config
 	@gcloud docker push $(IMAGE_NAME)
 	@gcloud docker push $(IMAGE_NAME_LATEST)
 
+clean:
+	# NO OP

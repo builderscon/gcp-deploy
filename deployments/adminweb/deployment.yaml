@@ -28,6 +28,9 @@ spec:
         - name: nginx
           secret:
             secretName: nginx-admin-builderscon-io
+        - name: basicauth
+          secret:
+            secretName: authmap-admin-builderscon-io
       containers:
         - image: asia.gcr.io/builderscon-1248/nginx:20160411.105018
           resources:
@@ -49,7 +52,7 @@ spec:
             - name: nginx
               readOnly: true
               mountPath: /etc/nginx
-        - image: asia.gcr.io/builderscon-1248/adminweb:449e73f-314edeb-986a77c-4100617
+        - image: asia.gcr.io/builderscon-1248/adminweb:61abc63-241c884-3549b2c-4100617
           name: app
           ports:
             - containerPort: 5000
@@ -79,6 +82,8 @@ spec:
               value: /config/clientkey
             - name: OCTAV_API_CLIENT_SECRET
               value: /config/clientsecret
+            - name: BASIC_AUTH_MAP
+              value: /auth/authmap.pl
           volumeMounts:
             - name: static-files
               mountPath: /static-files
@@ -91,3 +96,6 @@ spec:
             - name: adminweb
               readOnly: true
               mountPath: /config
+            - name: basicauth
+              readOnly: true
+              mountPath: /auth
