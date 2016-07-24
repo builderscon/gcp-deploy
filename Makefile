@@ -52,8 +52,19 @@ slackbot-publish:
 	@$(MAKE) slackgw-publish DEBUG=$(DEBUG)
 	@$(MAKE) slackrouter-publish DEBUG=$(DEBUG)
 
-slackbot:
-	@$(MAKE) slackbot-docker DEBUG=$(DEBUG)
-	@$(MAKE) slackbot-publish DEBUG=$(DEBUG)
-	@$(MAKE) slackbot-gke-deploy DEBUG=$(DEBUG)
+deployment:
+	@$(MAKE) $(DEPLOYMENT)-clean DEBUG=$(DEBUG)
+	@$(MAKE) $(DEPLOYMENT)-docker DEBUG=$(DEBUG)
+	@$(MAKE) $(DEPLOYMENT)-publish DEBUG=$(DEBUG)
 
+slackbot:
+	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=slackbot
+
+apiserver:
+	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=apiserver
+
+adminweb:
+	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=adminweb
+
+confweb:
+	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=confweb

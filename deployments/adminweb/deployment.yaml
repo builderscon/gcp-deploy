@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: octav-adminweb-deployment
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -52,7 +52,7 @@ spec:
             - name: nginx
               readOnly: true
               mountPath: /etc/nginx
-        - image: asia.gcr.io/builderscon-1248/adminweb:61abc63-241c884-3549b2c-4100617
+        - image: asia.gcr.io/builderscon-1248/adminweb:459c2a9-54c68c5-fd1784a-4100617
           name: app
           ports:
             - containerPort: 5000
