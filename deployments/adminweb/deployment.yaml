@@ -52,7 +52,7 @@ spec:
             - name: nginx
               readOnly: true
               mountPath: /etc/nginx
-        - image: asia.gcr.io/builderscon-1248/adminweb:459c2a9-54c68c5-fd1784a-4100617
+        - image: asia.gcr.io/builderscon-1248/adminweb:d7068b8-ddb2998-de03034-4100617
           name: app
           ports:
             - containerPort: 5000
