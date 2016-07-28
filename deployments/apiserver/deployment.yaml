@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: octav-apiserver-deployment
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -11,11 +11,17 @@ spec:
         group: octav
     spec:
       volumes:
+        - name: certificates
+          secret:
+            secretName: ca-certificates
         - name: cloudsql
           secret:
             secretName: cloudsql
+        - name: google
+          secret:
+            secretName: google-dev
       containers:
-        - image: asia.gcr.io/builderscon-1248/apiserver:149278d-debug
+        - image: asia.gcr.io/builderscon-1248/apiserver:b2f35a2-debug
           name: apiserver
           env:
             - name: OCTAV_MYSQL_DBNAME
@@ -34,10 +40,20 @@ spec:
               value: /cloudsql/client-key.pem
             - name: OCTAV_TRACE_DB
               value: "1"
+            - name: GOOGLE_STORAGE_MEDIA_BUCKET
+              value: media-builderscon-1248
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /google/servicekey
           ports:
             - containerPort: 8080
               protocol: TCP
           volumeMounts:
+            - name: certificates
+              readOnly: true
+              mountPath: /etc/ssl/certs
             - name: cloudsql
               readOnly: true
               mountPath: /cloudsql
+            - name: google
+              readOnly: true
+              mountPath: /google
