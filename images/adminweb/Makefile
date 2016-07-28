@@ -11,7 +11,10 @@ $(APPDIR):
 $(CURDIR)/cpanfile: $(APPDIR)/cpanfile
 	cp $(APPDIR)/cpanfile $(CURDIR)/cpanfile
 
-build-local-lib:
+$(CURDIR)/cpanm:
+	wget -O cpanm http://cpanmin.us
+
+build-local-lib: $(CURDIR)/cpanm
 	docker build -f Dockerfile.build -t octav/adminweb-builder .
 
 $(CURDIR)/perl.tar.gz: $(CURDIR)/adminweb-builder.cid

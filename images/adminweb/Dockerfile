@@ -2,7 +2,7 @@ FROM debian
 
 ENV PATH=/local-lib/bin:/opt/perl/bin:$PATH
 RUN apt-get update && \
-    apt-get install -qy --no-install-recommends libssl-dev 
+    apt-get install -qy --no-install-recommends libssl-dev libmagic-dev
 ADD perl.tar.gz /
 ADD cpanfile /
 ADD adminweb.tar.gz /
