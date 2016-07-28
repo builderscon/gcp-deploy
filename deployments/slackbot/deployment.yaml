@@ -26,7 +26,7 @@ spec:
         - name: octav-clone
           gitRepo:
             repository: git://github.com/builderscon/gcp-deploy.git
-            revision: ada9bf1
+            revision: 63cabb8
       containers:
         # Talks to slack, accepts requests to post to slack
         - image: asia.gcr.io/builderscon-1248/slackgw:6259541-18550cb-debug
