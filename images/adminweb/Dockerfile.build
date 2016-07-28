@@ -13,12 +13,13 @@ RUN apt-get update && \
 
 ADD cpanfile.master /cpanfile
 ADD cpanm /
-ADD adminweb.tar.gz /
 
 ENV PERL5OPT="-Mlib=/local-lib/lib/perl5 -Mlib=/adminweb/lib"
 RUN chmod +x cpanm && \
-    ./cpanm -L local-lib -n --installdeps . && \
-    cd /adminweb && /cpanm -L /local-lib -n --installdeps . && \
+    ./cpanm -L local-lib -n --installdeps .
+
+ADD cpanfile /
+RUN ./cpanm -L local-lib -n --installdeps . && \
     tar -cvzf /adminweb-local-lib.tar.gz /local-lib
 
 CMD ["/bin/bash"]
