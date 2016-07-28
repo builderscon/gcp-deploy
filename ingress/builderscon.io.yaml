@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: confweb-ingress-{{index . "timestamp"}}
+  labels:
+    domain: builderscon.io
+spec:
+  tls:
+  - secretName: builderscon.io-20160725-223519
+  backend:
+    serviceName: confweb-proxy
+    servicePort: 5001
