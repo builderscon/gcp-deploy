@@ -21,7 +21,7 @@ spec:
           secret:
             secretName: nginx-conf-builderscon-io
       containers:
-        - image: asia.gcr.io/builderscon-1248/confweb:ad6ac76-2baa52d-c9c65ff-87fd8d6-5e39497
+        - image: asia.gcr.io/builderscon-1248/confweb:ed01d7e-da39a3e-c9c65ff-87fd8d6-5e39497
           name: app
           volumeMounts:
             - name: static-files
@@ -31,7 +31,7 @@ spec:
               exec:
                 # This command copies the static files to a shared dir so
                 # proxy can read it
-                command: [ "cp", "-R", "/conf.builderscon.io/assets/", "/static-files/" ]
+                command: [ "cp", "-R", "/conf.builderscon.io/static/", "/static-files/" ]
         # proxy that receives traffic. shares the same static file
         # resource set as the app. config file exists in secret
         - image: asia.gcr.io/builderscon-1248/nginx:20160411.105018
