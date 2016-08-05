@@ -9,7 +9,7 @@ docker:
 publish:
 	@$(MAKE) -C images/$(APPNAME) publish DEBUG=$(DEBUG)
 
-gke-deploy:
+deploy:
 	@$(MAKE) -C deployments/$(APPNAME) deploy
 
 %-clean:
@@ -24,9 +24,9 @@ gke-deploy:
 	@echo "* Publishing docker image..."
 	@$(MAKE) publish APPNAME=$(patsubst %-publish,%,$@) DEBUG=$(DEBUG)
 
-%-gke-deploy:
+%-deploy:
 	@echo "* Deploying to GKE..."
-	@$(MAKE) gke-deploy APPNAME=$(patsubst %-gke-deploy,%,$@) DEBUG=$(DEBUG)
+	@$(MAKE) deploy APPNAME=$(patsubst %-deploy,%,$@) DEBUG=$(DEBUG)
 
 slackbot-clean:
 	@$(MAKE) acmebot-clean 

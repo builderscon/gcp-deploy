@@ -21,7 +21,7 @@ spec:
           secret:
             secretName: google-dev
       containers:
-        - image: asia.gcr.io/builderscon-1248/apiserver:2b68830-debug
+        - image: asia.gcr.io/builderscon-1248/apiserver:42b3334-debug
           name: apiserver
           env:
             - name: OCTAV_MYSQL_DBNAME
