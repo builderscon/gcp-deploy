@@ -1,0 +1,7 @@
+apiVersion: v1
+metadata:
+  name: kube-lego
+data:
+  lego.email: "lestrrat@gmail.com"
+  lego.url: "https://acme-v01.api.letsencrypt.org/directory"
+kind: ConfigMap

@@ -1,12 +1,28 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: confweb-ingress-{{index . "timestamp"}}
-  labels:
-    domain: builderscon.io
+  name: builderscon
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "gce"
 spec:
   tls:
-  - secretName: builderscon.io-20160725-223519
-  backend:
-    serviceName: confweb-proxy
-    servicePort: 5001
+  - hosts:
+    - builderscon.io
+    - admin.builderscon.io
+    secretName: builderscon-io-tls
+  rules:
+  - host: admin.builderscon.io
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: adminweb-proxy
+          servicePort: 5001
+  - host: builderscon.io
+    http:
+      paths:
+      - backend:
+          serviceName: confweb-proxy
+          servicePort: 5001
+
