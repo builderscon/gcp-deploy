@@ -17,11 +17,8 @@ spec:
         - name: cloudsql
           secret:
             secretName: cloudsql
-        - name: google
-          secret:
-            secretName: google-dev
       containers:
-        - image: asia.gcr.io/builderscon-1248/apiserver:42b3334-debug
+        - image: asia.gcr.io/builderscon-1248/apiserver:644ee38-debug
           name: apiserver
           env:
             - name: OCTAV_MYSQL_DBNAME
@@ -44,8 +41,26 @@ spec:
               value: GoogleStorage
             - name: GOOGLE_STORAGE_MEDIA_BUCKET
               value: media-builderscon-1248
-            - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /google/servicekey
+            - name: MAILGUN_DEFAULT_SENDER
+              valueFrom:
+                secretKeyRef:
+                  name: mailgun
+                  key: default.sender
+            - name: MAILGUN_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: mailgun
+                  key: domain
+            - name: MAILGUN_PUBLIC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mailgun
+                  key: public.api.key
+            - name: MAILGUN_SECRET_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mailgun
+                  key: secret.api.key
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -56,6 +71,3 @@ spec:
             - name: cloudsql
               readOnly: true
               mountPath: /cloudsql
-            - name: google
-              readOnly: true
-              mountPath: /google
