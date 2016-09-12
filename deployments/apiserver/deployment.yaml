@@ -18,7 +18,7 @@ spec:
           secret:
             secretName: cloudsql
       containers:
-        - image: asia.gcr.io/builderscon-1248/apiserver:644ee38-debug
+        - image: asia.gcr.io/builderscon-1248/apiserver:413069f-debug
           name: apiserver
           env:
             - name: OCTAV_MYSQL_DBNAME
@@ -61,6 +61,11 @@ spec:
                 secretKeyRef:
                   name: mailgun
                   key: secret.api.key
+            - name: TWITTER_OAUTH2_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: twitter
+                  key: access.token
           ports:
             - containerPort: 8080
               protocol: TCP
