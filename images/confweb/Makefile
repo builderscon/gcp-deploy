@@ -26,7 +26,7 @@ gcloud-config:
 
 latest:
 	@make $(APPDIR)
-	@pushd $(APPDIR) && git pull && popd
+	pushd $(APPDIR) && git pull && popd
 	$(eval FILES:=$(shell find $(APPDIR) -not -wholename '*/.git*' -type f))
 
 docker: latest $(APPDIR) $(FILES) Dockerfile config.json

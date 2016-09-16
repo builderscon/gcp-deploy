@@ -4,4 +4,5 @@ metadata:
 data:
   lego.email: "lestrrat@gmail.com"
   lego.url: "https://acme-v01.api.letsencrypt.org/directory"
+  lego.port: "18080"
 kind: ConfigMap

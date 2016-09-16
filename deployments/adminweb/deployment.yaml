@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: octav-adminweb-deployment
+  name: adminweb
 spec:
   replicas: 1
   template:
@@ -18,13 +18,13 @@ spec:
             medium: Memory
         - name: github
           secret:
-            secretName: github-dev
+            secretName: github
         - name: adminweb
           secret:
             secretName: adminweb
         - name: googlemaps
           secret:
-            secretName: googlemaps-dev
+            secretName: googlemaps
         - name: nginx
           secret:
             secretName: nginx-admin-builderscon-io
@@ -52,7 +52,7 @@ spec:
             - name: nginx
               readOnly: true
               mountPath: /etc/nginx
-        - image: asia.gcr.io/builderscon-1248/adminweb:eaebd97-eb80129-7233a8c-8f53f28
+        - image: asia.gcr.io/builderscon-1248/adminweb:085cd4e-87950d3-8dab4c6-8f53f28
           name: app
           ports:
             - containerPort: 5000

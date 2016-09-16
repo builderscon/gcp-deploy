@@ -25,3 +25,4 @@ deploy: deployment.yaml
 	@$(MAKE) mailgun-secret
 	@$(MAKE) twitter-secret
 	@kubectl apply -f deployment.yaml
+	@kubectl apply -f services.yaml

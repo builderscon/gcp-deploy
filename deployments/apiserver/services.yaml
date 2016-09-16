@@ -1,0 +1,17 @@
+kind: List
+apiVersion: v1
+items:
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: apiserver
+      labels:
+        name: apiserver
+    spec:
+      type: NodePort
+      selector:
+        name: apiserver
+      ports:
+        - name: proxy
+          port: 8080
+          targetPort: 8080

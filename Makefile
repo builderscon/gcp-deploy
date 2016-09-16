@@ -1,4 +1,7 @@
-.PHONY:
+.PHONY: ingress
+
+switch-cluster:
+	gcloud container clusters get-credentials $(CLUSTER)
 
 compclean:
 	@$(MAKE) -C images/$(APPNAME) clean
@@ -11,6 +14,9 @@ publish:
 
 deploy:
 	@$(MAKE) -C deployments/$(APPNAME) deploy
+
+ingress:
+	$(MAKE) -C ingress $(INGRESS_NAME)
 
 %-clean:
 	@echo "* Cleaning $(patsubst %-clean,%,$@)..."
@@ -27,6 +33,10 @@ deploy:
 %-deploy:
 	@echo "* Deploying to GKE..."
 	@$(MAKE) deploy APPNAME=$(patsubst %-deploy,%,$@) DEBUG=$(DEBUG)
+
+%-ingress:
+	@echo "* Deploying ingress..."
+	@$(MAKE) ingress INGRESS_NAME=$(patsubst %-ingress,%,$@)
 
 slackbot-clean:
 	@$(MAKE) acmebot-clean 

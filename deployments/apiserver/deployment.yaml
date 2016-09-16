@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: octav-apiserver-deployment
+  name: apiserver
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -11,14 +11,11 @@ spec:
         group: octav
     spec:
       volumes:
-        - name: certificates
-          secret:
-            secretName: ca-certificates
         - name: cloudsql
           secret:
             secretName: cloudsql
       containers:
-        - image: asia.gcr.io/builderscon-1248/apiserver:413069f-debug
+        - image: asia.gcr.io/builderscon-1248/apiserver:bfac368-debug
           name: apiserver
           env:
             - name: OCTAV_MYSQL_DBNAME
@@ -70,9 +67,6 @@ spec:
             - containerPort: 8080
               protocol: TCP
           volumeMounts:
-            - name: certificates
-              readOnly: true
-              mountPath: /etc/ssl/certs
             - name: cloudsql
               readOnly: true
               mountPath: /cloudsql

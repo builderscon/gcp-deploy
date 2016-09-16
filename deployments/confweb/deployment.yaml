@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: octav-confweb-deployment
+  name: confweb
 spec:
   replicas: 2
   template:
@@ -21,7 +21,7 @@ spec:
           secret:
             secretName: nginx-conf-builderscon-io
       containers:
-        - image: asia.gcr.io/builderscon-1248/confweb:d2108e0-da39a3e-624ba88-87fd8d6-5e39497
+        - image: asia.gcr.io/builderscon-1248/confweb:19b6613-da39a3e-f151765-87fd8d6-5e39497
           name: app
           volumeMounts:
             - name: static-files
