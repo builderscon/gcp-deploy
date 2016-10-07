@@ -61,8 +61,8 @@ publish: latest tag docker gcloud-config
 	@docker tag octav/$(APPNAME) $(IMAGE_NAME)
 	@echo " --> pushing $(IMAGE_NAME)..."
 	@docker tag $(IMAGE_NAME) $(IMAGE_NAME_LATEST)
-	@gcloud docker push $(IMAGE_NAME)
-	@gcloud docker push $(IMAGE_NAME_LATEST)
+	@gcloud docker -- push $(IMAGE_NAME)
+	@gcloud docker -- push $(IMAGE_NAME_LATEST)
 
 clean:
 	@-rm $(CURDIR)/adminweb.tar.gz
