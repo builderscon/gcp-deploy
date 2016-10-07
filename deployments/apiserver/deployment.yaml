@@ -15,7 +15,7 @@ spec:
           secret:
             secretName: cloudsql
       containers:
-        - image: asia.gcr.io/builderscon-1248/apiserver:bfac368-debug
+        - image: asia.gcr.io/builderscon-1248/apiserver:a1bdf14-debug
           name: apiserver
           env:
             - name: OCTAV_MYSQL_DBNAME
@@ -38,6 +38,8 @@ spec:
               value: GoogleStorage
             - name: GOOGLE_STORAGE_MEDIA_BUCKET
               value: media-builderscon-1248
+            - name: GOOGLE_STORAGE_CREDENTIAL_BUCKET
+              value: credentials-builderscon-1248
             - name: MAILGUN_DEFAULT_SENDER
               valueFrom:
                 secretKeyRef:
