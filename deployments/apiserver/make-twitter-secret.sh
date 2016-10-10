@@ -12,4 +12,6 @@ exec jo -p \
     apiVersion=v1 \
     type=Opaque \
     metadata=$(jo name=twitter labels=$(jo name=twitter group=secrets)) \
-    data[access.token]=$(cat $PWD/twitter/twitter.json | jq -r -j -M '.["access_token"]' | base64)
+    data[access.token]=$(cat $PWD/twitter/twitter.json | jq -r -j -M '.["access_token"]' | base64) \
+    data[consumer.key]=$(cat $PWD/twitter/twitter.json | jq -r -j -M '.["consumer_key"]' | base64) \
+    data[consumer.secret]=$(cat $PWD/twitter/twitter.json | jq -r -j -M '.["consumer_secret"]' | base64)

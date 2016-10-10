@@ -52,7 +52,7 @@ spec:
             - name: nginx
               readOnly: true
               mountPath: /etc/nginx
-        - image: asia.gcr.io/builderscon-1248/adminweb:8d308fc-85fe259-ef629ff-8f53f28
+        - image: asia.gcr.io/builderscon-1248/adminweb:baaa6d2-52a0c68-ef629ff-8f53f28
           name: app
           ports:
             - containerPort: 5000
@@ -82,8 +82,22 @@ spec:
               value: /config/clientkey
             - name: OCTAV_API_CLIENT_SECRET
               value: /config/clientsecret
+            - name: OCTAV_TWITTER_CONSUMER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: twitter
+                  key: consumer.key
+            - name: OCTAV_TWITTER_CONSUMER_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: twitter
+                  key: consumer.secret
+            - name: APISERVER_ENDPOINT
+              value: http://apiserver:8080
             - name: BASIC_AUTH_MAP
               value: /auth/authmap.pl
+            - name: MOJO_MODE
+              value: production
           volumeMounts:
             - name: static-files
               mountPath: /static-files
