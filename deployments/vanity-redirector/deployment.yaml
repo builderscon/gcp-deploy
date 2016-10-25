@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: vanity-redirector
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: vanity-redirector
+        group: octav
+    spec:
+      containers:
+        - image: asia.gcr.io/builderscon-1248/vanity-redirector:2f001f4-b1b02df-a44347f-2775aaf
+          name: vanity-redirector
+          ports:
+            - containerPort: 5002
+              protocol: TCP
+          env:
+            - name: APP_PORT
+              value: "5002"

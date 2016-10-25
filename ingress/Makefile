@@ -9,3 +9,7 @@ adminweb:
 apiserver:
 	kubectl apply -f api.builderscon.io.yaml
 	./hcupdate.sh apiserver
+
+vanity-redirector:
+	kubectl apply -f vanity-redirector.yaml
+	./hcupdate.sh vanity-redirector

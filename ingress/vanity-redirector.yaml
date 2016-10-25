@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: vanity-redirector
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "gce"
+spec:
+  tls:
+  - hosts:
+    - 2016.tokyo.builderscon.io
+    - 2017.tokyo.builderscon.io
+    secretName: vanity-redirector-tls
+  rules:
+  - host: 2016.tokyo.builderscon.io 
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: vanity-redirector
+          servicePort: 5002
+  - host: 2017.tokyo.builderscon.io 
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: vanity-redirector
+          servicePort: 5002
