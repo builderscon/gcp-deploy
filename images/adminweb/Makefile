@@ -1,3 +1,5 @@
+.PHONY: latest
+
 BUILDER_IMAGE=octav/adminweb-builder
 REPOSITORY_HOST=asia.gcr.io
 PROJECT_ID=$(shell gcloud config list 2>&1 | grep 'project = ' | sed -e 's/project = //')
@@ -34,7 +36,7 @@ $(CURDIR)/adminweb.tar.gz: $(wildcard $(APPDIR)/**/*)
 		--exclude adminweb/.git \
 		-cvzf $(CURDIR)/adminweb.tar.gz $(shell basename $(APPDIR))
 
-docker: $(CURDIR)/cpanfile $(CURDIR)/adminweb.tar.gz $(CURDIR)/adminweb-local-lib.tar.gz $(CURDIR)/perl.tar.gz 
+docker: latest $(CURDIR)/cpanfile $(CURDIR)/adminweb.tar.gz $(CURDIR)/adminweb-local-lib.tar.gz $(CURDIR)/perl.tar.gz 
 	docker build -t octav/adminweb .
 
 latest:
