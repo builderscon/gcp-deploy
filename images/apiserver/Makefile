@@ -23,10 +23,10 @@ endif
 $(CURDIR)/$(APPNAME): $(APPDIR)
 ifeq ($(DEBUG), 1)
 	cd $(APPDIR) && \
-	GOOS=linux GOARCH=amd64 go build -tags debug0 -o $(CURDIR)/$(APPNAME) cmd/octav/octav.go
+	GOOS=linux GOARCH=amd64 go build -tags="gcp debug0" -o $(CURDIR)/$(APPNAME) cmd/octav/octav.go
 else
 	cd $(APPDIR) && \
-	GOOS=linux GOARCH=amd64 go build -o $(CURDIR)/$(APPNAME) cmd/octav/octav.go
+	GOOS=linux GOARCH=amd64 go build -o $(CURDIR)/$(APPNAME) -tags gcp cmd/octav/octav.go
 endif
 
 $(APPNAME): $(CURDIR)/$(APPNAME)

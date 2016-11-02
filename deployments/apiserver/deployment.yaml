@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: apiserver
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -15,7 +15,7 @@ spec:
           secret:
             secretName: cloudsql
       containers:
-        - image: asia.gcr.io/builderscon-1248/apiserver:f51cbb0-debug
+        - image: asia.gcr.io/builderscon-1248/apiserver:8bfc013-debug
           name: apiserver
           env:
             - name: OCTAV_MYSQL_DBNAME
@@ -36,6 +36,10 @@ spec:
               value: "1"
             - name: OCTAV_STORAGE_TYPE
               value: GoogleStorage
+            - name: GOOGLE_PROJECT_ID
+              value: builderscon-1248
+            - name: GOOGLE_LOG_ID
+              value: apiserver
             - name: GOOGLE_STORAGE_MEDIA_BUCKET
               value: media-builderscon-1248
             - name: GOOGLE_STORAGE_CREDENTIAL_BUCKET
