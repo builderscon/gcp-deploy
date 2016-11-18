@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: apiserver
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -15,9 +15,13 @@ spec:
           secret:
             secretName: cloudsql
       containers:
-        - image: asia.gcr.io/builderscon-1248/apiserver:8bfc013-debug
+        - image: asia.gcr.io/builderscon-1248/apiserver:c261414-da39a3e-debug
           name: apiserver
           env:
+            - name: CACHE_MAGIC
+              value: 2016-11-17
+            - name: REDIS_ADDR
+              value: redis:6379
             - name: OCTAV_MYSQL_DBNAME
               value: octav
             - name: OCTAV_MYSQL_ADDRESS_FILE
