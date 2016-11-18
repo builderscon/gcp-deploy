@@ -12,6 +12,7 @@ tag:
 ifeq ($(TAG), )
 	$(eval TAG := $(shell cd $(APPDIR) && git log -1 --pretty=format:%h))
 endif
+	$(eval TAG := $(TAG)-$(shell cd $(APPDIR) && (cat Dockerfile | shasum | cut -c1-7)))
 ifeq ($(DEBUG), 1)
 	$(eval TAG := $(TAG)-debug)
 endif
