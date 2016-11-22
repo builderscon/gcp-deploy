@@ -79,5 +79,8 @@ adminweb:
 confweb:
 	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=confweb
 
+mailer:
+	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=mailer
+
 vanity-redirector:
 	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=vanity-redirector

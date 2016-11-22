@@ -8,4 +8,5 @@ deploy: $(FILES)
 	@make -C .. adminweb-deploy
 	@make -C .. confweb-deploy
 	@make -C .. builderscon-ingress
+	@make -C .. apiserver-ingress
 	@make -C .. adminweb-ingress
