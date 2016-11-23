@@ -16,12 +16,15 @@ spec:
         - name: static-files
           emptyDir:
             medium: Memory
-        - name: github
-          secret:
-            secretName: github
         - name: adminweb
           secret:
             secretName: adminweb
+        - name: adminweb-config
+          configMap:
+            name: adminweb-config
+            items:
+              - key: config-json
+                path: config.json
         - name: googlemaps
           secret:
             secretName: googlemaps
@@ -52,7 +55,10 @@ spec:
             - name: nginx
               readOnly: true
               mountPath: /etc/nginx
-        - image: asia.gcr.io/builderscon-1248/adminweb:c41c7e3-333db9b-3d0ba35-8f53f28
+            - name: basicauth
+              readOnly: true
+              mountPath: /etc/authmap
+        - image: asia.gcr.io/builderscon-1248/adminweb:adcef96-da39a3e-87fd8d6-941fee5
           name: app
           ports:
             - containerPort: 5000
@@ -68,26 +74,59 @@ spec:
             postStart:
               exec:
                 # This command copies the static files to a shared dir so proxy can read it
-                command: [ "cp", "-R", "/adminweb/public/static/", "/static-files/" ]
+                command: [ "cp", "-R", "/admin.builderscon.io/static/", "/static-files/" ]
           env:
-            - name: OCTAV_REDIS
-              value: redis:6379
-            - name: OCTAV_GITHUB_CLIENT_ID
-              value: /github/id
-            - name: OCTAV_GITHUB_CLIENT_SECRET
-              value: /github/secret
+            - name: ADMINWEB_REDIS_HOST
+              value: redis
+            - name: ADMINWEB_REDIS_PORT
+              value: "6379"
+            - name: ADMINWEB_REDIS_DB
+              value: "0"
+            - name: CONFIG_FILE
+              value: /config/config.json
+            - name: OCTAV_CLIENT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: adminweb
+                  key: clientkey
+            - name: OCTAV_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: adminweb
+                  key: clientsecret
+            - name: ADMINWEB_GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: github-adminweb
+                  key: id
+            - name: ADMINWEB_GITHUB_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: github-adminweb
+                  key: secret
             - name: OCTAV_GOOGLE_MAPS_API_KEY
               value: /googlemaps/apikey
-            - name: OCTAV_API_CLIENT_KEY
-              value: /config/clientkey
-            - name: OCTAV_API_CLIENT_SECRET
-              value: /config/clientsecret
-            - name: OCTAV_TWITTER_CONSUMER_KEY
+            - name: ADMINWEB_FLASK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: flask
+                  key: secret
+            - name: ADMINWEB_FACEBOOK_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: facebook
+                  key: id
+            - name: ADMINWEB_FACEBOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: facebook
+                  key: secret
+            - name: ADMINWEB_TWITTER_CLIENT_ID
               valueFrom:
                 secretKeyRef:
                   name: twitter
                   key: consumer.key
-            - name: OCTAV_TWITTER_CONSUMER_SECRET
+            - name: ADMINWEB_TWITTER_SECRET
               valueFrom:
                 secretKeyRef:
                   name: twitter
@@ -101,13 +140,10 @@ spec:
           volumeMounts:
             - name: static-files
               mountPath: /static-files
-            - name: github
-              readOnly: true
-              mountPath: /github
             - name: googlemaps
               readOnly: true
               mountPath: /googlemaps
-            - name: adminweb
+            - name: adminweb-config
               readOnly: true
               mountPath: /config
             - name: basicauth

@@ -15,4 +15,4 @@ exec jo -p \
     kind=Secret \
     apiVersion=v1 \
     metadata=$(jo name=$SECRET_NAME labels=$(jo name=$SECRET_NAME group=secrets)) \
-    data[authmap.pl]=$(base64 authmap.pl)
+    data[authmap]=$(base64 authmap)

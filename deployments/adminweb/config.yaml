@@ -1,0 +1,15 @@
+apiVersion: v1
+data:
+  config-json: |-
+    {
+      "FLASK": {
+        "base_url": "https://admin.builderscon.io"
+      },
+      "OCTAV": {
+        "endpoint": "https://api.builderscon.io"
+      }
+    }
+kind: ConfigMap
+metadata:
+  name: adminweb-config
+  namespace: default

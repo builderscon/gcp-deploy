@@ -1,10 +1,21 @@
-FROM debian
+FROM alpine:3.4
 
-ENV PATH=/local-lib/bin:/opt/perl/bin:$PATH
-RUN apt-get update && \
-    apt-get install -qy --no-install-recommends libssl-dev libmagic-dev
-ADD perl.tar.gz /
-ADD adminweb.tar.gz /
-ADD adminweb-local-lib.tar.gz /
-ENV PERL5OPT="-Mlib=/local-lib/lib/perl5 -Mlib=/adminweb/lib"
-CMD [ "start_server", "--port", "5000", "--signal-on-hup=USR1", "/adminweb/script/run-plackup.sh" ]
+RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+  && apk add --update \
+              ca-certificates \
+              musl \
+              build-base \
+              python \
+              python-dev \
+              py-pip \
+  && rm /var/cache/apk/* \
+  && pip2.7 install --upgrade pip \
+  && pip install gunicorn
+
+VOLUME [ "/static-files" ]
+EXPOSE 5000
+ADD admin.builderscon.io /admin.builderscon.io
+ADD scripts/run.sh /
+WORKDIR /admin.builderscon.io
+RUN pip install -r requirements.txt
+CMD [ "/run.sh" ]
