@@ -2,34 +2,23 @@
 
 Deploy scripts, configurations, and other utilities
 
-## TODO
+# TODO
 
 * Make the step of updating deployment.yaml automatic, perhaps by generating the YAML document on the fly
 
-## Authentication
+# Authentication
+
+You must do this ONCE. (NOT every time, just once)
 
 ```
 gcloud auth login
 ```
 
-## Deploying Slackbot
+# DEPLOYING
 
-```shell
-make slackbot-docker # builds docker images
-make slackbot-publish # publishes docker images to GCP
-```
-
-Note the image name from `slackbot-publish` action, such as
-
-```
-asia.gcr.io/builderscon-1248/slackgw:6259541-18550cb-debug
-```
-
-Apply this image name to `deployments/slackbot/deployment.yaml`, then run
-
-```shell
-make slackbot-gke-deploy
-```
+1. If you need to create a Docker image, run `make $whatever DEBUG=1`
+2. Modify deployments/$whatever/deployment.yaml. To point to the new image, use the specification show in previous step (`asia.gcr.io/....`). Tweak Kubernetes settings as necessary
+3. Run `make $whatever-deploy`
 
 ## Deploying the API server
 
@@ -39,25 +28,7 @@ make apiserver
 make apiserver DEBUG=1
 ```
 
-This will do the following:
-
-* call `make apiserver-clean`
-* call `make apiserver-docker`
-* call `make apiserver-publish`
-
-The source code used in `apiserver-docker` is expected to be in `$GOPATH/octav/octav`
-
-Note the image name from `apiserver-publish` action, such as
-
-```
-asia.gcr.io/builderscon-1248/apiserver:976bee7-debug
-```
-
-Apply this image name to `deployments/apiserver/deployment.yaml`, then run
-
-```shell
-make apiserver-gke-deploy
-```
+The Go source code used is expected to be in `$GOPATH/octav/octav`
 
 ## Deploying conf.builderscon.io
 
@@ -65,35 +36,25 @@ make apiserver-gke-deploy
 make confweb
 ```
 
-This will do the following:
+The source code used is expected to be in `images/confweb/conf.builderscon.io`. The above command will issue a `git pull` as necessary
 
-* call `make confweb-clean`
-* call `make confweb-docker`
-* call `make confweb-publish`
-
-The source code used in `confweb-docker` is expected to be in `images/confweb/conf.builderscon.io`
-
-Note the image name from `confweb-publish` action, such as
-
-```
-asia.gcr.io/builderscon-1248/confweb:976bee7-12db830-87fd8d6-ad30e43
-```
-
-Apply this image name to `deployments/confweb/deployment.yaml`, then run
+## Deploying admin.builderscon.io
 
 ```shell
-make confweb-gke-deploy
+make adminweb
 ```
 
-## Kubernetes
+The source code used is expected to be in `images/adminweb/admin.builderscon.io`. The above command will issue a `git pull` as necessary
 
-### minikube
+# Kubernetes
+
+TODO: Hopefully make minikube work?
 
 `minikube` allows you to run kubernetes locally. Note that when yo udo this,
 you are obviously missing some GCP components such as CloudSQL, GAE, 
 PubSub, etc., so not everything will work.
 
-#### Installation
+## Installation
 
 Download the appropriate binary, install it under your PATH: https://github.com/kubernetes/minikube/releases
 

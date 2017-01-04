@@ -15,7 +15,7 @@ spec:
           secret:
             secretName: cloudsql
       containers:
-        - image: asia.gcr.io/builderscon-1248/apiserver:8cd0d6b-da39a3e-debug
+        - image: asia.gcr.io/builderscon-1248/apiserver:c7e979b-96be0c6-debug
           name: apiserver
           env:
             - name: CACHE_MAGIC
