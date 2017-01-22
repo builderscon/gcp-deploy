@@ -1,0 +1,6 @@
+{
+  "default_sender": "no-reply@builderscon.io",
+  "domain": "builderscon.io",
+  "secret_api_key": "XXX GET THIS FROM MAILGUN XXX",
+  "public_api_key": "XXX GET THIS FROM MAILGUN XXX"
+}
