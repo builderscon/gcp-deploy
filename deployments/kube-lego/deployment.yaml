@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: kube-lego
-        image: jetstack/kube-lego:0.1.2
+        image: jetstack/kube-lego:0.1.3
         imagePullPolicy: Always
         ports:
         - containerPort: 18080
@@ -34,6 +34,10 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
+        - name: LEGO_CHECK_INTERVAL
+          value: 4h
+        - name: LEGO_MINIMUM_VALIDITY
+          value: 720h
         - name: LEGO_PORT
           value: "18080"
         readinessProbe:
