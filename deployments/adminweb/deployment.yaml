@@ -58,7 +58,7 @@ spec:
             - name: basicauth
               readOnly: true
               mountPath: /etc/authmap
-        - image: asia.gcr.io/builderscon-1248/adminweb:9c2477f-da39a3e-87fd8d6-941fee5
+        - image: asia.gcr.io/builderscon-1248/adminweb:dc99f92-da39a3e-87fd8d6-941fee5
           name: app
           ports:
             - containerPort: 5000
@@ -124,12 +124,12 @@ spec:
             - name: ADMINWEB_TWITTER_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: twitter
+                  name: twitter-adminweb
                   key: consumer.key
             - name: ADMINWEB_TWITTER_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: twitter
+                  name: twitter-adminweb
                   key: consumer.secret
             - name: APISERVER_ENDPOINT
               value: http://apiserver:8080

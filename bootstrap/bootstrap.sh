@@ -39,6 +39,12 @@ make_secret \
     | $APPLY
 
 make_secret \
+    metadata=$(jo name=twitter-adminweb labels=$(jo name=twitter-adminweb group=prd)) \
+    data[consumer.key]=$(cat config.json | jq -rjM '.["twitter-adminweb"].consumer_key' | base64) \
+    data[consumer.secret]=$(cat config.json | jq -rjM '.["twitter-adminweb"].consumer_secret' | base64) \
+    | $APPLY
+
+make_secret \
     metadata=$(jo name=flask labels=$(jo name=flask group=prd)) \
     data[secret]=$(cat config.json | jq -rjM .flask.secret | base64) \
     | $APPLY

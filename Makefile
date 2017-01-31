@@ -1,6 +1,11 @@
+CONFIG=octav-dev
+CLUSTER=builderscon-prd2
+
 .PHONY: ingress
 
-switch-cluster:
+switch-account:
+	gcloud config configurations activate $(CONFIG)
+	gcloud auth application-default login
 	gcloud container clusters get-credentials $(CLUSTER)
 
 compclean:

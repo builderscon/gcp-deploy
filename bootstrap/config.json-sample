@@ -1,0 +1,28 @@
+{
+  "adminweb": {
+    "clientkey": "client key registered to access octav API",
+    "clientsecret": "client secret registered to access octav API"
+  },
+  "github": {
+    "id": "github application ID",
+    "secret": "github application secret"
+  },
+  "github-adminweb": {
+    "id": "github application ID for adminweb",
+    "secret": "github application ID for adminweb"
+  },
+  "facebook": {
+    "id": "facebook application ID",
+    "secret": "facebook application secret"
+  },
+  "twitter-adminweb": {
+    "consumer_key": "twitter applicaton consumer key for adminweb",
+    "consumer_secret": "twitter application consumer secret for adminweb"
+  },
+  "googlemaps": {
+    "apikey": "google maps api key"
+  },
+  "flask": {
+    "secret": "flask key to generate hashed tokens"
+  }
+}
