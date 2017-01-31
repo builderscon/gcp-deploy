@@ -11,9 +11,9 @@ spec:
         group: octav
     spec:
       volumes:
-        - name: cloudsql
+        - name: mysql
           secret:
-            secretName: cloudsql
+            secretName: mysql
       containers:
         - image: asia.gcr.io/builderscon-1248/apiserver:c7e979b-96be0c6-debug
           name: apiserver
@@ -25,17 +25,17 @@ spec:
             - name: OCTAV_MYSQL_DBNAME
               value: octav
             - name: OCTAV_MYSQL_ADDRESS_FILE
-              value: /cloudsql/address
+              value: /mysql/address
             - name: OCTAV_MYSQL_USERNAME
-              value: root
+              value: octav
             - name: OCTAV_MYSQL_PASSWORD_FILE
-              value: /cloudsql/password
+              value: /mysql/password
             - name: OCTAV_MYSQL_CA_CERT_FILE
-              value: /cloudsql/server-ca.pem
+              value: /mysql/server-ca.pem
             - name: OCTAV_MYSQL_CLIENT_CERT_FILE
-              value: /cloudsql/client-cert.pem
+              value: /mysql/client-cert.pem
             - name: OCTAV_MYSQL_CLIENT_KEY_FILE
-              value: /cloudsql/client-key.pem
+              value: /mysql/client-key.pem
             - name: OCTAV_TRACE_DB
               value: "1"
             - name: OCTAV_STORAGE_TYPE
@@ -87,6 +87,6 @@ spec:
             - containerPort: 8080
               protocol: TCP
           volumeMounts:
-            - name: cloudsql
+            - name: mysql
               readOnly: true
-              mountPath: /cloudsql
+              mountPath: /mysql
