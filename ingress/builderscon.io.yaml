@@ -18,4 +18,3 @@ spec:
         backend:
           serviceName: confweb-proxy
           servicePort: 5001
-

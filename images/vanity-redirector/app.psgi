@@ -10,5 +10,10 @@ sub {
         return [404, [], []]
     }
 
-    return [301, ['Location' => "https://builderscon.io/builderscon/" . join '/', reverse split /\./, $1], []]
+    my $path = join '/', reverse split /\./, $1;
+    if ($path == 'tokyo/2016') {
+        return [301, ['Location' => "https://builderscon.io/builderscon/$path"], []]
+    } else {
+        return [301, ['Location' => "https://builderscon.io/$path"], []]
+    }
 }

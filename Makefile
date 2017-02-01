@@ -8,6 +8,10 @@ switch-account:
 	gcloud auth application-default login
 	gcloud container clusters get-credentials $(CLUSTER)
 
+cloudsql:
+	@echo "Connecting to mysql..."
+	mysql -uoctav -h $(shell cat secrets/mysql/address) --password=$(shell cat secrets/mysql/password) --ssl-ca=secrets/mysql/server-ca.pem --ssl-cert=secrets/mysql/client-cert.pem --ssl-key=secrets/mysql/client-key.pem octav
+
 compclean:
 	@$(MAKE) -C images/$(APPNAME) clean
 

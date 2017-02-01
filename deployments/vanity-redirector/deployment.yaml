@@ -11,7 +11,8 @@ spec:
         group: octav
     spec:
       containers:
-        - image: asia.gcr.io/builderscon-1248/vanity-redirector:2f001f4-b1b02df-a44347f-2775aaf
+        - image: asia.gcr.io/builderscon-1248/vanity-redirector:2f001f4-b1b02df-6dd820d-2775aaf
+          imagePullPolicy: Always
           name: vanity-redirector
           ports:
             - containerPort: 5002
