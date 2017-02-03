@@ -1,3 +1,4 @@
+DEPLOY_ROOT=../..
 APPNAME=apiserver
 REPOSITORY_HOST=asia.gcr.io
 PROJECT_ID=$(shell gcloud config list 2>&1 | grep 'project = ' | sed -e 's/project = //')
@@ -46,6 +47,10 @@ publish: gcloud-config tag $(APPNAME)
 	@docker tag $(IMAGE_NAME) $(IMAGE_NAME_LATEST)
 	@gcloud docker -- push $(IMAGE_NAME)
 	@gcloud docker -- push $(IMAGE_NAME_LATEST)
+
+update-image: tag
+	@echo "Updating deployment.yaml file to use image $(IMAGE_NAME)..."
+	@perl -i -pe 's{image: $(REPOSITORY_HOST)/$(PROJECT_ID)/$(APPNAME):.+$$}{image: $(IMAGE_NAME)}' $(DEPLOY_ROOT)/deployments/$(APPNAME)/deployment.yaml
 
 clean:
 	@-rm $(APPNAME)
