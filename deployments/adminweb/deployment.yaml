@@ -58,7 +58,7 @@ spec:
             - name: basicauth
               readOnly: true
               mountPath: /etc/authmap
-        - image: asia.gcr.io/builderscon-1248/adminweb:4c5d1b1-da39a3e-87fd8d6-941fee5
+        - image: asia.gcr.io/builderscon-1248/adminweb:5cfa0b8-da39a3e-87fd8d6-941fee5
           name: app
           ports:
             - containerPort: 5000
