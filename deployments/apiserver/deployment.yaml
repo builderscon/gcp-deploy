@@ -15,7 +15,7 @@ spec:
           secret:
             secretName: mysql
       containers:
-        - image: asia.gcr.io/builderscon-1248/apiserver:2e2dd8a-96be0c6-debug
+        - image: asia.gcr.io/builderscon-1248/apiserver:116b71a-96be0c6-debug
           imagePullPolicy: Always
           name: apiserver
           env:
