@@ -5,4 +5,4 @@ RUN apk add --update ca-certificates tzdata && \
     rm -rf /var/cache/apk/*
 ADD apiserver /apiserver
 
-CMD /apiserver
+CMD ["/apiserver"]
