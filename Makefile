@@ -1,7 +1,7 @@
 CONFIG=octav-dev
 CLUSTER=builderscon-prd2
 
-.PHONY: ingress
+.PHONY: ingress force-switch-account
 
 switch-account:
 	gcloud config configurations activate $(CONFIG)
@@ -65,6 +65,9 @@ slackbot:
 
 apiserver:
 	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=apiserver
+
+apiserver-v2:
+	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=apiserver-v2
 
 adminweb:
 	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=adminweb

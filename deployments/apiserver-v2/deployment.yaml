@@ -1,13 +1,13 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: apiserver
+  name: apiserver-v2
 spec:
   replicas: 2
   template:
     metadata:
       labels:
-        name: apiserver
+        name: apiserver-v2
         group: octav
     spec:
       volumes:
@@ -15,12 +15,12 @@ spec:
           secret:
             secretName: mysql
       containers:
-        - image: asia.gcr.io/builderscon-1248/apiserver:7a31b37-be5348b-debug
+        - image: asia.gcr.io/builderscon-1248/apiserver-v2:9023cdd-9c03562-debug
           imagePullPolicy: Always
-          name: apiserver
+          name: apiserver-v2
           env:
             - name: CACHE_MAGIC
-              value: 2016-11-17
+              value: 2017-03-29
             - name: REDIS_ADDR
               value: redis:6379
             - name: OCTAV_MYSQL_DBNAME

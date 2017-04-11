@@ -14,7 +14,11 @@ spec:
   - host: api.builderscon.io
     http:
       paths:
-      - path: /*
+      - path: /v1/*
         backend:
           serviceName: apiserver
+          servicePort: 8080
+      - path: /v2/*
+        backend:
+          serviceName: apiserver-v2
           servicePort: 8080

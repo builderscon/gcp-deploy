@@ -58,7 +58,7 @@ spec:
             - name: basicauth
               readOnly: true
               mountPath: /etc/authmap
-        - image: asia.gcr.io/builderscon-1248/adminweb:d4f5791-da39a3e-87fd8d6-941fee5
+        - image: asia.gcr.io/builderscon-1248/adminweb:1ce6036-da39a3e-87fd8d6-941fee5
           name: app
           ports:
             - containerPort: 5000
@@ -132,7 +132,7 @@ spec:
                   name: twitter-adminweb
                   key: consumer.secret
             - name: APISERVER_ENDPOINT
-              value: http://apiserver:8080
+              value: http://apiserver-v2:8080
             - name: BASIC_AUTH_MAP
               value: /auth/authmap.pl
             - name: MOJO_MODE
