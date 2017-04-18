@@ -1,30 +1,83 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps/v1beta1
+kind: StatefulSet
 metadata:
-  name: redis
+  name: redis-cluster
 spec:
-  replicas: 1
+  serviceName: redis-cluster
+  replicas: 6
   template:
     metadata:
       labels:
-        name: redis
-        role: master
-      name: redis-master
+        app: redis-cluster
+      annotations:
+        # NOTE: Init container must be idempotent
+        # Add a baked-in Redis config file that enables cluster mode
+        #pod.alpha.kubernetes.io/init-containers: '[
+        #]'
     spec:
+      terminationGracePeriodSeconds: 10
+      #hostNetwork: true
       containers:
-        - name: master
-          image: kubernetes/redis:v1
-          env:
-            - name: MASTER
-              value: "true"
+        - name: redis
+          image: asia.gcr.io/builderscon-1248/redis:7446c76
+          imagePullPolicy: Always
+          lifecycle:
+            postStart:
+              exec:
+                command: [ "/bootstrap.sh" ]
           ports:
             - containerPort: 6379
-          resources:
-            limits:
-              cpu: "0.1"
+              name: client
+            - containerPort: 16379
+              name: gossip
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "redis-cli -h $(hostname) ping"
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "redis-cli -h $(hostname) ping"
+            initialDelaySeconds: 20
+            periodSeconds: 3
+          env:
+            - name: REDIS_CLUSTER_NODES
+              value: "6"
+            - name: REDIS_GROUP_SIZE
+              value: "3"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
           volumeMounts:
-            - mountPath: /redis-master-data
-              name: data
+            - name: conf
+              mountPath: /conf
+              readOnly: true
+            - name: podinfo
+              mountPath: /etc/podinfo
+              readOnly: true
       volumes:
-        - name: data
-          emptyDir: {}
+        # Insert our pre-baked Redis configuration file into /conf/redis.conf
+        - name: conf
+          secret:
+            secretName: redis
+        # The init container will use this info to find cluster peers
+        - name: podinfo
+          downwardAPI:
+            items:
+              - path: "labels"
+                fieldRef:
+                  fieldPath: metadata.labels
+              - path: "annotations"
+                fieldRef:
+                  fieldPath: metadata.annotations

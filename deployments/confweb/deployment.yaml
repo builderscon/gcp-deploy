@@ -21,8 +21,13 @@ spec:
           secret:
             secretName: nginx-conf-builderscon-io
       containers:
-        - image: asia.gcr.io/builderscon-1248/confweb:199c001-da39a3e-025d07b-87fd8d6-9c3b2e6
+        - image: asia.gcr.io/builderscon-1248/confweb:3a6884d-da39a3e-edd6c69-87fd8d6-9c3b2e6
           name: app
+          env:
+            - name: CACHE_BACKEND
+              value: RedisCluster
+            - name: SESSION_BACKEND
+              value: RedisCluster
           volumeMounts:
             - name: static-files
               mountPath: /static-files

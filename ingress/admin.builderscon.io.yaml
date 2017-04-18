@@ -4,6 +4,7 @@ metadata:
   name: adminweb
   annotations:
     kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.global-static-ip-name: "adminweb"
     kubernetes.io/ingress.class: "gce"
 spec:
   tls:

@@ -78,5 +78,8 @@ confweb:
 mailer:
 	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=mailer
 
+redis:
+	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=redis
+
 vanity-redirector:
 	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=vanity-redirector

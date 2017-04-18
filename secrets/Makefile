@@ -1,7 +1,8 @@
 MYSQL_FILES=$(wildcard mysql/*)
+REDIS_FILES=$(wildcard redis/*)
 YOUTUBE_FILES=$(wildcard youtube/*)
 
-.PHONY:	make-secret $(MYSQL_FILES)
+.PHONY:	make-secret $(MYSQL_FILES) $(REDIS_FILES)
 
 make-secret:
 	kubectl create secret generic $(SECRET_NAME) -o json --dry-run $(ARGS) | kubectl apply -f -
@@ -9,8 +10,16 @@ make-secret:
 $(MYSQL_FILES):
 	$(eval ARGS :=$(ARGS) --from-file=$@)
 
+$(REDIS_FILES):
+	$(eval ARGS :=$(ARGS) --from-file=$@)
+
 mysql: $(MYSQL_FILES)
+	@$(MAKE) make-secret SECRET_NAME=$@ ARGS="$(ARGS)"
+
+redis: $(REDIS_FILES)
 	@$(MAKE) make-secret SECRET_NAME=$@ ARGS="$(ARGS)"
 
 youtube: $(YOUTUBE_FILES)
 	@$(MAKE) make-secret SECRET_NAME=$@ ARGS="$(ARGS)"
+
+

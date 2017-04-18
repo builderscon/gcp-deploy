@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: adminweb
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -58,7 +58,7 @@ spec:
             - name: basicauth
               readOnly: true
               mountPath: /etc/authmap
-        - image: asia.gcr.io/builderscon-1248/adminweb:1ce6036-da39a3e-87fd8d6-941fee5
+        - image: asia.gcr.io/builderscon-1248/adminweb:84f2889-da39a3e-87fd8d6-941fee5
           name: app
           ports:
             - containerPort: 5000
@@ -80,8 +80,8 @@ spec:
               value: redis
             - name: ADMINWEB_REDIS_PORT
               value: "6379"
-            - name: ADMINWEB_REDIS_DB
-              value: "0"
+            - name: SESSION_BACKEND
+              value: RedisCluster
             - name: CONFIG_FILE
               value: /config/config.json
             - name: OCTAV_CLIENT_KEY
