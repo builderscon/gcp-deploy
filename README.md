@@ -60,3 +60,14 @@ Download the appropriate binary, install it under your PATH: https://github.com/
 
 Also download kubectl if you haven't done so.
 
+# Architecture
+
+|-------------------|---------------------------------------------------------------|
+| mysql.default.svc | ExternalName service that points to either mysql.local.svc    |
+|                   | mysql.prod.svc                                                |
+|-------------------|---------------------------------------------------------------|
+| mysql.prod.svc    | ExternalName service that points to CloudSQL                  |
+|-------------------|---------------------------------------------------------------|
+| mysql.local.svc   | ExternalName service that points to 10.0.2.2 (IP address      |
+|                   | assigned for VirtualBox's host machine)                       |
+|-------------------|---------------------------------------------------------------|

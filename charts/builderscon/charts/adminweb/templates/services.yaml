@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adminweb-proxy
+  labels:
+    name: adminweb-proxy
+spec:
+  type: NodePort
+  selector:
+    name: adminweb
+  ports:
+    - name: proxy
+      port: {{ .Values.Proxy.Port }}
+      targetPort: {{ .Values.Proxy.Port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adminweb-app
+  labels:
+    name: adminweb-app
+spec:
+  type: ClusterIP
+  selector:
+    name: adminweb
+  ports:
+    - name: app
+      port: {{ .Values.App.Port }}
+      targetPort: {{ .Values.App.Port }}

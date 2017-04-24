@@ -1,0 +1,4 @@
+Port: 5002
+ImageName: vanity-redirector
+ContainerTag: 2f001f4-b1b02df-6dd820d-2775aaf
+

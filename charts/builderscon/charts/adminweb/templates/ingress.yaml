@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: adminweb
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.global-static-ip-name: "adminweb"
+    kubernetes.io/ingress.class: "gce"
+spec:
+  tls:
+  - hosts:
+    - admin.builderscon.io
+    secretName: admin-builderscon-io-tls
+  rules:
+  - host: admin.builderscon.io
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: adminweb-proxy
+          servicePort: {{ .Values.Proxy.Port }}

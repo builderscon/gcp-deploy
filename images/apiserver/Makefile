@@ -49,8 +49,8 @@ publish: gcloud-config tag $(APPNAME)
 	@gcloud docker -- push $(IMAGE_NAME_LATEST)
 
 update-image: tag
-	@echo "Updating deployment.yaml file to use image $(IMAGE_NAME)..."
-	@perl -i -pe 's{image: $(REPOSITORY_HOST)/$(PROJECT_ID)/$(APPNAME):.+$$}{image: $(IMAGE_NAME)}' $(DEPLOY_ROOT)/deployments/$(APPNAME)/deployment.yaml
+	@echo "Updating charts/builderscon/charts/apiserver/values.yaml file to use image $(IMAGE_NAME)..."
+	@perl -i -pe 's{ContainerTag: .+$$}{ContainerTag: $(TAG)}' $(DEPLOY_ROOT)/charts/builderscon/charts/$(APPNAME)/values.yaml
 
 clean:
 	@-rm $(APPNAME)

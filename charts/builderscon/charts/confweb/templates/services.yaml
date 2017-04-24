@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: confweb-proxy
+  labels:
+    name: confweb-proxy
+spec:
+  type: NodePort
+  selector:
+    name: confweb
+  ports:
+    - name: proxy
+      port: {{ .Values.Proxy.Port }}
+      targetPort: {{ .Values.Proxy.Port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: confweb-app
+  labels:
+    name: confweb-app
+spec:
+  type: ClusterIP
+  selector:
+    name: confweb
+  ports:
+    - name: app
+      port: {{ .Values.App.Port }}
+      targetPort: {{ .Values.App.Port }}
