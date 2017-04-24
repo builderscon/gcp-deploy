@@ -1,0 +1,4 @@
+global:
+  ImageRegistry: asia.gcr.io
+  ProjectID: builderscon-1248
+

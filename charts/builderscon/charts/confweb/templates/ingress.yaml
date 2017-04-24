@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: builderscon
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "confweb"
+spec:
+  tls:
+  - hosts:
+    - builderscon.io
+    secretName: builderscon-io-tls
+  rules:
+  - host: builderscon.io
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: confweb-proxy
+          servicePort: {{ .Values.Proxy.Port }}

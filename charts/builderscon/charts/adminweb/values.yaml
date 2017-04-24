@@ -1,0 +1,11 @@
+App:
+  ImageName: adminweb
+  ContainerTag: 5ddbfd0-da39a3e-87fd8d6-941fee5
+  Port: 5000
+Proxy:
+  ImageName: nginx
+  ConfigName: nginx-admin-builderscon-io
+  ContainerTag: "20160411.105018"
+  Port: 5001
+ReplicaCount: 2
+SecretName: secret-admin-builderscon-io

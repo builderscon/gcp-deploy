@@ -24,9 +24,6 @@ publish:
 update-image:
 	@$(MAKE) -C images/$(APPNAME) update-image DEBUG=$(DEBUG)
 
-deploy:
-	@$(MAKE) -C deployments/$(APPNAME) deploy
-
 ingress:
 	$(MAKE) -C ingress $(INGRESS_NAME)
 
@@ -46,10 +43,6 @@ ingress:
 	@echo "* Updating image in deployment..."
 	@$(MAKE) update-image APPNAME=$(patsubst %-update-image,%,$@) DEBUG=$(DEBUG)
 
-%-deploy:
-	@echo "* Deploying to GKE..."
-	@$(MAKE) deploy APPNAME=$(patsubst %-deploy,%,$@) DEBUG=$(DEBUG)
-
 %-ingress:
 	@echo "* Deploying ingress..."
 	@$(MAKE) ingress INGRESS_NAME=$(patsubst %-ingress,%,$@)
@@ -66,9 +59,6 @@ slackbot:
 apiserver:
 	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=apiserver
 
-apiserver-v2:
-	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=apiserver-v2
-
 adminweb:
 	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=adminweb
 
@@ -83,3 +73,12 @@ redis:
 
 vanity-redirector:
 	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=vanity-redirector
+
+deploy:
+	@if [ "$$(helm ls | grep $(patsubst %-helm,%,$@) | awk '{print $$1}')" == "$(patsubst %-helm,%,$@)" ]; then \
+		echo "Upgrading helm release $(patsubst %-helm,%,$@)"; \
+		helm upgrade $(patsubst %-helm,%,$@) $(HELM_ARGS) ./charts/$(patsubst %-helm,%,$@); \
+	else \
+		echo "Installing helm release $(patsubst %-helm,%,$@)"; \
+		helm install --name $(patsubst %-helm,%,$@) $(HELM_ARGS) ./charts/$(patsubst %-helm,%,$@); \
+	fi

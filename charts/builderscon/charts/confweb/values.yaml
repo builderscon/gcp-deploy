@@ -1,0 +1,11 @@
+App:
+  ContainerTag: e909aa5-da39a3e-508741c-87fd8d6-9c3b2e6
+  ImageName: confweb
+  Port: 5000
+ImageName: confweb
+Proxy:
+  ConfigName: nginx-conf-builderscon-io
+  ContainerTag: "20160411.105018"
+  ImageName: nginx
+  Port: 5001
+ReplicaCount: 2

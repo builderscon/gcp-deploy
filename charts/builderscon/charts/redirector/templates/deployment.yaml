@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: vanity-redirector
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: vanity-redirector
+        group: octav
+    spec:
+      containers:
+        - image: {{ .Values.global.ImageRegistry }}/{{ .Values.global.ProjectID }}/{{ .Values.ImageName }}:{{ .Values.ContainerTag }}
+          imagePullPolicy: Always
+          name: vanity-redirector
+          ports:
+            - containerPort: {{ .Values.Port }}
+              protocol: TCP

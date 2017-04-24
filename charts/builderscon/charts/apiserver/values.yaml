@@ -1,0 +1,4 @@
+ContainerTag: 49e7297-be5348b-debug
+ImageName: apiserver
+Port: 8080
+ReplicaCount: 2

@@ -1,0 +1,26 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+spec:
+  type: ExternalName
+  externalName: mysql.{{ .Values.ActiveNamespace }}.svc.cluster.local
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+  namespace: prod
+spec:
+  type: ExternalName
+  externalName: {{ .Values.CloudSQLAddress }}
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+  namespace: local
+spec:
+  type: ExternalName
+  externalName: {{ .Values.VMHostAddress }}
+---
