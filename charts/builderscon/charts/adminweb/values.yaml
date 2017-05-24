@@ -1,6 +1,6 @@
 App:
   ImageName: adminweb
-  ContainerTag: 5ddbfd0-da39a3e-87fd8d6-941fee5
+  ContainerTag: 6d90a68-da39a3e-87fd8d6-941fee5
   Port: 5000
 Proxy:
   ImageName: nginx

@@ -1,5 +1,5 @@
 App:
-  ContainerTag: e909aa5-da39a3e-508741c-87fd8d6-9c3b2e6
+  ContainerTag: c625237-da39a3e-508741c-87fd8d6-9c3b2e6
   ImageName: confweb
   Port: 5000
 ImageName: confweb

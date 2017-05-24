@@ -73,17 +73,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: twitter
-                  key: access.token
+                  key: apiserver_access_token
             - name: TWITTER_OAUTH1_CONSUMER_KEY
               valueFrom:
                 secretKeyRef:
                   name: twitter
-                  key: consumer.key
+                  key: adminweb_id
             - name: TWITTER_OAUTH1_CONSUMER_SECRET
               valueFrom:
                 secretKeyRef:
                   name: twitter
-                  key: consumer.secret
+                  key: adminweb_secret
           ports:
             - containerPort: {{ .Values.Port }}
               protocol: TCP

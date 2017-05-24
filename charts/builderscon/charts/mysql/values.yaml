@@ -1,3 +1,3 @@
-ActiveNamespace: local
+ActiveNamespace: prod
 CloudSQLAddress: 104.199.180.122
 VMHostAddress: 10.0.2.2

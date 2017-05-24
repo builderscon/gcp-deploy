@@ -86,23 +86,23 @@ spec:
             - name: OCTAV_CLIENT_KEY
               valueFrom:
                 secretKeyRef:
-                  name: adminweb
-                  key: clientkey
+                  name: {{ .Values.SecretName }}
+                  key: client.key
             - name: OCTAV_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: adminweb
-                  key: clientsecret
+                  name: {{ .Values.SecretName }}
+                  key: client.secret
             - name: ADMINWEB_GITHUB_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: github-adminweb
-                  key: id
+                  name: github
+                  key: adminweb_id
             - name: ADMINWEB_GITHUB_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: github-adminweb
-                  key: secret
+                  name: github
+                  key: adminweb_secret
             - name: OCTAV_GOOGLE_MAPS_API_KEY
               value: /etc/adminweb/googlemap.apikey
             - name: ADMINWEB_FLASK_SECRET
@@ -123,13 +123,13 @@ spec:
             - name: ADMINWEB_TWITTER_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: twitter-adminweb
-                  key: consumer.key
+                  name: twitter
+                  key: adminweb_id
             - name: ADMINWEB_TWITTER_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: twitter-adminweb
-                  key: consumer.secret
+                  name: twitter
+                  key: adminweb_secret
             - name: OCTAV_ENDPOINT
               value: http://apiserver:8080
             - name: MOJO_MODE

@@ -20,8 +20,8 @@ spec:
             medium: Memory
         # This secret must be created before hand
         - name: nginx
-          secret:
-            secretName: {{ .Values.Proxy.ConfigName }}
+          configMap:
+            name: {{ .Values.Proxy.ConfigName }}
       containers:
         - image: {{ .Values.global.ImageRegistry }}/{{ .Values.global.ProjectID }}/{{ .Values.App.ImageName }}:{{ .Values.App.ContainerTag }}
           name: app

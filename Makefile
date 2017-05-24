@@ -1,5 +1,5 @@
 CONFIG=octav-dev
-CLUSTER=builderscon-prd2
+CLUSTER=builderscon-prd3
 
 .PHONY: ingress force-switch-account
 
@@ -75,10 +75,10 @@ vanity-redirector:
 	@$(MAKE) deployment DEBUG=$(DEBUG) DEPLOYMENT=vanity-redirector
 
 deploy:
-	@if [ "$$(helm ls | grep $(patsubst %-helm,%,$@) | awk '{print $$1}')" == "$(patsubst %-helm,%,$@)" ]; then \
-		echo "Upgrading helm release $(patsubst %-helm,%,$@)"; \
-		helm upgrade $(patsubst %-helm,%,$@) $(HELM_ARGS) ./charts/$(patsubst %-helm,%,$@); \
+	@if [ "$$(helm ls | grep builderscon | awk '{print $$1}')" == "builderscon" ]; then \
+		echo "Upgrading helm release builderscon"; \
+		helm upgrade builderscon $(HELM_ARGS) ./charts/builderscon; \
 	else \
-		echo "Installing helm release $(patsubst %-helm,%,$@)"; \
-		helm install --name $(patsubst %-helm,%,$@) $(HELM_ARGS) ./charts/$(patsubst %-helm,%,$@); \
+		echo "Installing helm release builderscon"; \
+		helm install --name builderscon $(HELM_ARGS) ./charts/builderscon; \
 	fi

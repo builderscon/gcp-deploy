@@ -44,8 +44,8 @@ publish: tag docker gcloud-config
 	@gcloud docker -- push $(IMAGE_NAME_LATEST)
 
 update-image: tag
-	@echo "Updating charts/$(APPNAME)/values.yaml file to use image $(IMAGE_NAME)..."
-	@perl -i -pe 'if (/App:/) { $$in_app = 1; } if ($$in_app &&  s{ContainerTag: .+$$}{ContainerTag: $(TAG)}) { $$in_app = 0; }' $(DEPLOY_ROOT)/charts/$(APPNAME)/values.yaml
+	@echo "Updating charts/builderscon/charts/$(APPNAME)/values.yaml file to use image $(IMAGE_NAME)..."
+	@perl -i -pe 'if (/App:/) { $$in_app = 1; } if ($$in_app &&  s{ContainerTag: .+$$}{ContainerTag: $(TAG)}) { $$in_app = 0; }' $(DEPLOY_ROOT)/charts/builderscon/charts/$(APPNAME)/values.yaml
 
 clean:
 	# NO OP
