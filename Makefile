@@ -1,12 +1,12 @@
 CONFIG=octav-dev
 CLUSTER=builderscon-prd3
 
-.PHONY: ingress force-switch-account
+.PHONY: ingress force-switch-account download-secrets upload-secrets
 
 switch-account:
 	gcloud config configurations activate $(CONFIG)
 	gcloud auth application-default login
-	gcloud container clusters get-credentials $(CLUSTER)
+	gcloud container clusters get-credentials $(CLUSTER) --zone asia-east1-a
 
 cloudsql:
 	@echo "Connecting to mysql..."
@@ -82,3 +82,10 @@ deploy:
 		echo "Installing helm release builderscon"; \
 		helm install --name builderscon $(HELM_ARGS) ./charts/builderscon; \
 	fi
+
+download-secrets:
+	@sh ./scripts/download-secrets.sh
+
+upload-secrets:
+	@sh ./scripts/upload-secrets.sh
+
