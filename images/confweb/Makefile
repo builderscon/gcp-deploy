@@ -40,8 +40,8 @@ publish: tag docker gcloud-config
 	@docker tag octav/$(APPNAME) $(IMAGE_NAME)
 	@echo " --> pushing $(IMAGE_NAME)..."
 	@docker tag $(IMAGE_NAME) $(IMAGE_NAME_LATEST)
-	@gcloud docker -- push $(IMAGE_NAME)
-	@gcloud docker -- push $(IMAGE_NAME_LATEST)
+	@docker push $(IMAGE_NAME)
+	@docker push $(IMAGE_NAME_LATEST)
 
 update-image: tag
 	@echo "Updating charts/builderscon/charts/$(APPNAME)/values.yaml file to use image $(IMAGE_NAME)..."
